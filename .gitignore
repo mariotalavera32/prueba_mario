@@ -348,3 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+# qa-demo
+node_modules/
+playwright-report/
+test-results/
