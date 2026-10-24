@@ -1,0 +1,35 @@
+import { test, expect } from '@playwright/test';
+import { LoginPage } from '../pages/LoginPage';
+
+test.describe('Login', () => {
+  let login: LoginPage;
+
+  test.beforeEach(async ({ page }) => {
+    login = new LoginPage(page);
+    await login.goto();
+  });
+
+  test('login válido accede a la zona segura', async ({ page }) => {
+    await login.login('tomsmith', 'SuperSecretPassword!');
+    await expect(page).toHaveURL(/\/secure$/);
+    await login.expectMessage('You logged into a secure area!');
+  });
+
+  test('contraseña incorrecta muestra error', async ({ page }) => {
+    await login.login('tomsmith', 'incorrecta');
+    await expect(page).toHaveURL(/\/login$/);
+    await login.expectMessage('Your password is invalid!');
+  });
+
+  test('usuario inexistente muestra error', async () => {
+    await login.login('nadie', 'x');
+    await login.expectMessage('Your username is invalid!');
+  });
+
+  test('logout vuelve al login', async ({ page }) => {
+    await login.login('tomsmith', 'SuperSecretPassword!');
+    await page.getByRole('link', { name: 'Logout' }).click();
+    await expect(page).toHaveURL(/\/login$/);
+    await login.expectMessage('You logged out of the secure area!');
+  });
+});

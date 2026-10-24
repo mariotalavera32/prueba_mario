@@ -17,5 +17,6 @@ npx playwright install chromium
 npm test               # unitarias + e2e
 npm run test:unit
 npm run test:e2e
+npm run test:coverage   # cobertura de unitarias
 npx playwright show-report
 ```
