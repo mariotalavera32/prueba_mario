@@ -9,6 +9,7 @@ Proyecto de automatización de pruebas con TypeScript.
 - **API** (Playwright `request`): `tests/api.spec.ts`
 - **Login** (POM): `tests/login.spec.ts`, `pages/LoginPage.ts`
 - **Accesibilidad** (axe-core): `tests/a11y.spec.ts`
+- **Visual** (screenshots, solo Chromium): `tests/visual.spec.ts`; baselines en `tests/__snapshots__/`. Regenerar: `npx playwright test tests/visual.spec.ts --project=chromium --update-snapshots`
 - **Navegadores**: Chromium, Firefox y WebKit (`--project=firefox` para uno solo)
 - **CI**: GitHub Actions (`.github/workflows/qa.yml`)
 
