@@ -15,16 +15,20 @@ test.describe('Login', () => {
     await login.expectMessage('You logged into a secure area!');
   });
 
-  test('contraseña incorrecta muestra error', async ({ page }) => {
-    await login.login('tomsmith', 'incorrecta');
-    await expect(page).toHaveURL(/\/login$/);
-    await login.expectMessage('Your password is invalid!');
-  });
+  const invalid = [
+    { caso: 'contraseña incorrecta', user: 'tomsmith', pass: 'incorrecta', msg: 'Your password is invalid!' },
+    { caso: 'usuario inexistente', user: 'nadie', pass: 'x', msg: 'Your username is invalid!' },
+    { caso: 'campos vacíos', user: '', pass: '', msg: 'Your username is invalid!' },
+    { caso: 'usuario con distinto case', user: 'TomSmith', pass: 'SuperSecretPassword!', msg: 'Your username is invalid!' },
+  ];
 
-  test('usuario inexistente muestra error', async () => {
-    await login.login('nadie', 'x');
-    await login.expectMessage('Your username is invalid!');
-  });
+  for (const { caso, user, pass, msg } of invalid) {
+    test(`${caso} muestra error`, async ({ page }) => {
+      await login.login(user, pass);
+      await expect(page).toHaveURL(/\/login$/);
+      await login.expectMessage(msg);
+    });
+  }
 
   test('logout vuelve al login', async ({ page }) => {
     await login.login('tomsmith', 'SuperSecretPassword!');
