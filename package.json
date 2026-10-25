@@ -8,6 +8,8 @@
     "test:unit": "vitest run unit",
     "test:integration": "vitest run integration",
     "start": "tsx src/api/server.ts",
+    "db": "tsx scripts/db.ts",
+    "db:seed": "tsx scripts/seed.ts",
     "test:coverage": "vitest run unit --coverage --coverage.include=src",
     "test:e2e": "playwright test"
   },

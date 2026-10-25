@@ -24,6 +24,9 @@ npm test               # unitarias + e2e
 npm run test:unit
 npm run test:integration   # API + MongoDB en memoria
 npm start               # API en :3000 (requiere MongoDB; MONGO_URI opcional)
+npm run db              # MongoDB real y persistente en .data/db (puerto 27017), sin instalar nada
+npm run db:seed         # carga tareas de ejemplo
+docker compose up -d    # alternativa con Docker
 npm run test:e2e
 npm run test:coverage   # cobertura de unitarias
 npx playwright show-report
