@@ -4,6 +4,8 @@ export default defineConfig({
   testDir: './tests',
   testMatch: /.*\.spec\.ts/,
   retries: process.env.CI ? 2 : 0,
+  snapshotPathTemplate: '{testDir}/__snapshots__/{testFileName}/{arg}{ext}',
+  expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.02 } },
   reporter: [['list'], ['html', { open: 'never' }]],
   use: {
     baseURL: 'https://demo.playwright.dev/todomvc/',
