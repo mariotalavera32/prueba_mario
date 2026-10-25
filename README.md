@@ -9,6 +9,7 @@ Proyecto de automatización de pruebas con TypeScript.
 - **API** (Playwright `request`): `tests/api.spec.ts`
 - **Backend propio** (Express + Mongoose + MongoDB): `src/api/`, API REST de tareas (CRUD, validaciones, paginación)
 - **Integración** (Vitest + Supertest + `mongodb-memory-server`): `integration/tasks.test.ts`
+- **API propia con Playwright** (proyecto `backend`): `tests/backend/`; levanta la API en :3100 con Mongo temporal vía `webServer` (`scripts/test-server.ts`), sin tocar tu base local. Solo esas pruebas: `npx playwright test --project=backend`
 - **Login** (POM): `tests/login.spec.ts`, `pages/LoginPage.ts`
 - **Accesibilidad** (axe-core): `tests/a11y.spec.ts`
 - **Visual** (screenshots, solo Chromium): `tests/visual.spec.ts`; baselines en `tests/__snapshots__/`. Regenerar: `npx playwright test tests/visual.spec.ts --project=chromium --update-snapshots`

@@ -12,9 +12,16 @@ export default defineConfig({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
+  webServer: {
+    command: 'npx tsx scripts/test-server.ts',
+    url: 'http://localhost:3100/health',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120_000,
+  },
   projects: [
-    { name: 'chromium', use: { browserName: 'chromium' } },
-    { name: 'firefox', use: { browserName: 'firefox' } },
-    { name: 'webkit', use: { browserName: 'webkit' } },
+    { name: 'chromium', testIgnore: /backend\//, use: { browserName: 'chromium' } },
+    { name: 'firefox', testIgnore: /backend\//, use: { browserName: 'firefox' } },
+    { name: 'webkit', testIgnore: /backend\//, use: { browserName: 'webkit' } },
+    { name: 'backend', testMatch: /backend\/.*\.spec\.ts/, use: { baseURL: 'http://localhost:3100' } },
   ],
 });
